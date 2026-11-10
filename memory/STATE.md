@@ -1,33 +1,27 @@
 # Status proyek
 
-Terakhir diperbarui: 10 November 2026.
+Diperbarui: 10 November 2026.
 
-## Posisi saat ini
+## Status aktual
 
-- Fase terakhir selesai: 00 — definisi awal, arsitektur, dan persistence dokumentasi.
-- Fase berikutnya: 01 — spesifikasi eksperimen dan audit data; belum dimulai.
-- Handoff terakhir: [fase 00](phases/00-definition.md).
-- Implementasi: belum ada kode runtime, dataset, simulator, model terlatih, atau tes kode.
-- Mode: dokumentasi saja; tidak ada order, deployment, atau penggunaan API key.
+- Fase 00: definisi v0.1 dan persistence selesai setelah audit/revisi. Handoff: [fase 00](phases/00-definition.md).
+- Fase 01: audit runtime/data berikutnya; belum dijalankan. Spesifikasi eksperimennya sudah dituntaskan dalam fase 00.
+- Implementasi: belum ada runtime, dataset, training atau tes kode. Mode dokumentasi; tidak ada deployment/order.
 
-## Keputusan utama
+## Kontrak yang berlaku
 
-Binance BTCUSDT perpetual USDⓈ-M, USDT isolated, modal sekitar USD 100, leverage maksimal 5x. Risiko awal simulasi 0,5% per transaksi dan rugi harian maksimal 5%. Keputusan candle 15 menit, konteks candle 1 jam selesai. RL kandidat eksperimen dengan baseline aturan; risk engine terpisah dan training di simulator.
+Baca README, register keputusan, experiment-spec, acceptance dan operations. Produk disepakati: 100 USD, BTCUSDT USDT isolated, <=5x, risiko awal 0,5%, daily limit 5%, 15m/1h. Default development agent: satu posisi, margin <=25%, UTC day, close saat daily halt, TP/SL 3/1,5 ATR, timeout 4 jam, PPO. Detail bukan parameter yang harus ditebak lagi pada sesi berikutnya.
 
-## Berikutnya
+## Next step konkret
 
-1. Baca `docs/development-plan.md` dan `docs/decisions.md`.
-2. Buat `memory/phases/01-experiment-spec.md` dari template saat fase dimulai.
-3. Susun spesifikasi baseline, TP/SL, timeout posisi, model biaya, split data dan metrik; finalisasi kebijakan risiko yang masih usulan sebelum dipakai.
-4. Audit akses data/filter Binance aktual dan runtime lokal, lalu catat hasil. Jangan mengasumsikan minimum order dari pengumuman sebagai filter live.
+1. Buat catatan fase 01 dari template dan audit Python 3.11, uv, filesystem/Git serta akses sumber resmi.
+2. Audit data untuk rentang dan schema di experiment-spec.md; simpan manifest coverage/checksum. Ambil filter/fee/bracket sesuai akses resmi yang tersedia; jangan meminta key live untuk riset.
+3. Catat hasil aktual termasuk kegagalan akses. Setelah gate data terpenuhi, bootstrap paket/config dan implementasikan domain simulator sesuai roadmap.
 
-## Hal tertunda / keterbatasan
+## Keterbatasan nyata
 
-- Minimum order live belum terverifikasi: web menerima HTTP 451; shell gagal DNS. Ini kendala audit sumber, bukan alasan mengganti endpoint dengan cara menghindari pembatasan.
-- Batas margin 25%, satu posisi, auto-add margin mati, reset 00.00 UTC dan close saat limit adalah usulan.
-- Ambang kelulusan, periode data/paper trading, parameter strategi, biaya aktual akun, versi dependensi, hosting, kanal laporan belum final.
-- `python` tidak tersedia saat pemeriksaan sebelumnya; `python3` berhasil dipakai untuk tooling dokumen. Versi dan dependensi belum diaudit.
+API exchangeInfo sebelumnya web HTTP 451, shell gagal DNS; filter live belum terverifikasi. Tarif akun/metadata historis/coverage data dan kompatibilitas library belum dibuktikan. Ini pekerjaan audit, bukan definisi kosong. Provider/budget dan kanal alert eksternal menunggu fase operasi serta instruksi pengguna sebelum pembelian/pengiriman; tidak memblokir simulator.
 
-## Validasi dokumentasi
+## Catatan filesystem dan validasi
 
-Dokumen diperiksa tautan lokal dan konsistensi angka keputusan. Tidak ada klaim pengujian strategi atau minimum order live.
+AGENTS.md dan agents.md memiliki inode sama pada filesystem case-insensitive. Panduan utama dipulihkan; jangan membuat alias pengarah yang menimpanya. Validasi dokumentasi mencakup tautan, heading, kontradiksi status dan parameter v0.1; bukan bukti profitabilitas.

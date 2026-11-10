@@ -8,3 +8,7 @@ Pengetahuan yang dapat dipakai ulang, disertai sumber, tanggal pemeriksaan, stat
 | [RL dan evaluasi](rl-evaluation.md) | Policy, probabilitas, simulator dan evaluasi |
 
 Saat menambah artikel: tulis fakta vs rekomendasi, sumber resmi/primer, tanggal, keterbatasan, dan kapan perlu diverifikasi lagi. Aturan exchange yang berubah harus diperiksa saat implementasi dan runtime; artikel bukan cache otoritatif selamanya.
+
+## Filesystem workspace
+
+Diverifikasi lokal 10 November 2026: AGENTS.md dan agents.md memiliki inode sama. Gunakan satu panduan dengan isi lengkap; jangan membuat alias yang menimpa panduan. Pemeriksaan link saja tidak mendeteksi kehilangan isi semantik.

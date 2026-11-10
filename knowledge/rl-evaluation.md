@@ -16,7 +16,7 @@ Model-free RL dapat memerlukan banyak interaksi, reward yang dirancang cermat, d
 
 Sumber: https://stable-baselines3.readthedocs.io/en/master/guide/rl_tips.html
 
-Rekomendasi proyek: PPO kandidat awal, tindakan sederhana, TP/SL dan sizing di luar model. Reward berdasarkan equity net untuk mencegah kerugian belum terealisasi tersembunyi. Kebijakan risiko keras berlaku di training dan inference. Mengulang sejarah tidak menghasilkan kondisi pasar baru.
+Rekomendasi proyek: PPO untuk eksperimen v0.1, tindakan sederhana, TP/SL dan sizing di luar model. Reward berdasarkan equity net untuk mencegah kerugian belum terealisasi tersembunyi. Kebijakan risiko keras berlaku di training dan inference. Mengulang sejarah tidak menghasilkan kondisi pasar baru.
 
 ## Pencegahan kebocoran dan evaluasi
 
@@ -25,3 +25,7 @@ Split kronologis, scaler fit hanya di training, candle yang telah tersedia, dan 
 Sumber split berurutan: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html
 
 Evaluasi hasil bersih, drawdown, turnover, eksposur, pelanggaran risiko, serta sensitivitas biaya. Pisahkan pemilihan model dari final test dan paper trading. Jangan mengubah ambang kelulusan setelah melihat test akhir untuk meloloskan model.
+
+## Penerapan dalam proyek
+
+Spesifikasi aktif: `docs/experiment-spec.md`; reward log equity net tanpa penalti tambahan, risiko tetap 0,5%, policy tidak menentukan sizing. Gate numerik berada di `docs/acceptance.md`. Semua angka adalah pilihan eksperimen, bukan kesimpulan dari sumber atau hasil backtest.

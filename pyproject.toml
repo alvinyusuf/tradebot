@@ -1,0 +1,33 @@
+[project]
+name = "tradebot"
+version = "0.1.0"
+description = "BTCUSDT Futures research simulator"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "pydantic",
+    "typer",
+]
+
+[project.scripts]
+tradebot = "tradebot.cli:app"
+
+[project.optional-dependencies]
+learning = ["gymnasium", "stable-baselines3", "torch"]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

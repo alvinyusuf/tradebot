@@ -14,6 +14,6 @@ Status fase di sini adalah roadmap. Status aktual berada di `memory/STATE.md`.
 
 ## Langkah berikutnya
 
-Definisi eksperimen v0.1 sudah tersedia di experiment-spec.md, acceptance.md dan operations.md. Mulai fase 01 dengan audit runtime, akses sumber, coverage dataset dan metadata/filter; buat manifest audit nyata. Jangan menandai fase audit selesai hanya karena spesifikasinya selesai. Setelah audit memenuhi gate, bootstrap dan implementasikan simulator; tidak mengirim order live.
+Definisi eksperimen v0.1 tersedia di experiment-spec.md, acceptance.md dan operations.md. Audit Fase 01 mencatat cakupan, akses sumber resmi dan metadata/filter. Fondasi simulator Fase 02 dapat dibangun paralel dan diuji memakai fixture sintetis. Evaluasi yang sah tetap bergantung pada prasyarat data untuk rentang yang diuji serta kelulusan tes simulator. Bukti fixture hanya berlaku untuk perilaku kode pada skenario yang dites.
 
 Setiap fase memakai template `memory/templates/phase.md`. Jangan menetapkan fase selesai hanya karena file dibuat: bedakan rancangan, implementasi, dan hasil verifikasi. Fase 04 yang tidak mengalahkan baseline tetap menghasilkan temuan sah; tidak memaksa promosi model.

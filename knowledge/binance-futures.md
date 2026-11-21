@@ -29,3 +29,13 @@ Isolated margin bukan jaminan batas rugi harian. SL juga tidak menjamin harga fi
 ## Verifikasi berikutnya
 
 Saat implementasi: ambil filter dan metadata akun yang diperlukan lewat akses resmi yang tersedia, simpan timestamp audit, validasi endpoint proteksi TP/SL terkini dan perbedaan demo/live. Jangan mengasumsikan contoh dokumentasi merupakan filter BTCUSDT aktual.
+
+## Arsip publik dan batas verifikasi — 21 November 2026
+
+Arsip bulanan USDⓈ-M dari [Binance Public Data](https://github.com/binance/binance-public-data) dapat diakses dari workspace. Arsip BTCUSDT menyediakan candle kontrak, mark price, funding dan checksum per ZIP. Arsip funding menggunakan `calc_time`, `funding_interval_hours`, dan `last_funding_rate`. API [Funding Rate History](https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History) menyediakan `fundingTime` dan mark price terkait settlement. Validasi kesetaraan timestamp sebelum menggunakannya untuk membukukan funding tepat pada boundary.
+
+Dua percobaan koneksi ke host API Futures gagal dengan curl exit 7. Snapshot filter aktual masih diperlukan. [Dokumentasi akun USDⓈ-M](https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/account) menetapkan bracket dan komisi pengguna sebagai endpoint `USER_DATA` bertanda tangan.
+
+[Informasi API Futures USDⓈ-M](https://developers.binance.com/en/docs/products/derivatives-trading-usds-futures/general-info) menempatkan REST demo di `demo-fapi.binance.com`. Uji waktu publik ke host demo juga gagal sebelum HTTP. Audit metadata demo menggunakan host itu dan menyimpan hasil berlabel lingkungan demo. Filter, komisi, bracket, dan koefisien penyesuaian akun hanya berlaku untuk lingkungan dan akun yang diaudit.
+
+Pembaruan 23.16 WIB. Endpoint Futures dan Demo sudah merespons. Snapshot Futures BTCUSDT mengembalikan minimum notional 50 USDT, tick 0,10 serta minimum kuantitas dan step market 0,001. Fee dan bracket per akun masih perlu pengukuran terpisah. [Checkpoint audit](../memory/phases/01-data-runtime-audit.md)

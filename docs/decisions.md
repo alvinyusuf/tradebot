@@ -28,3 +28,17 @@ Perubahan keputusan: tambahkan tanggal, konteks, alasan, dan keputusan pengganti
 Pengguna meminta agent menuntaskan definisi yang sebelumnya masih menggantung. Parameter teknis berikut ditetapkan agent untuk development, tanpa mengklaim persetujuan individual pengguna: baseline EMA/RSI/volume, TP 3 ATR/SL 1,5 ATR, timeout 4 jam, PPO dan reward log equity net, data/split tetap, fee/slippage proxy, gate numerik, kontrak recovery/backup dan laporan. Seluruh nilai lengkap berada di `experiment-spec.md`, `acceptance.md`, dan `operations.md`.
 
 Definisi v0.1 kini dibekukan untuk implementasi. Perubahan harus punya alasan, versi dan dampak pada perbandingan. Fee/filter aktual dan hasil training bukan keputusan desain: harus dibuktikan lewat audit/tes. Anggaran provider serta kanal pengiriman eksternal merupakan gate otorisasi operasional, bukan blocker simulator.
+
+## Urutan implementasi — 21 November 2026
+
+Fondasi simulator dikerjakan paralel dengan audit data yang tertahan, menggunakan fixture sintetis untuk memeriksa perilaku modul. Perubahan urutan ini hanya menyangkut pekerjaan engineering. Spesifikasi eksperimen dan syarat validitas data v0.1 tetap berlaku untuk hasil baseline, RL, paper dan live.
+
+Implementasi offline memakai PyTorch CPU dari indeks resmi di Windows dan Linux. Saat tidak tersedia funding indikatif, simulator mencadangkan hingga empat settlement dengan 0,1% per settlement selama posisi empat jam sebagai asumsi konservatif. Resolusi OHLC membatasi urutan intramenit dan model likuidasi belum mencakup biaya likuidasi aktual Binance. Periksa asumsi ini bersama bukti data sebelum menilai hasil promosi.
+
+## Harga funding historis yang kosong — 21 November 2026
+
+REST memberikan rate dan waktu settlement, tetapi `markPrice` kosong pada 1.000 catatan awal. Dataset menyimpan nilai harga tersebut sebagai null dan mempertahankan timestamp yang terverifikasi. Simulator menghitung nominal funding memakai mark open menit settlement untuk baris yang kosong. Ini pendekatan resolusi data untuk riset historis, dicatat di artifact; paper tetap memerlukan mark settlement aktual.
+
+## Isolated 1x dan eksplorasi Demo
+
+Pengguna menyetujui pengaturan awal BTCUSDT Demo Isolated 1x. Test order memeriksa autentikasi dan penerimaan request tanpa fill. Pada modal v0.1 100 USDT dan margin maksimum 25%, konfigurasi 1x menampung maksimal notional 25 USDT, di bawah minimum Demo 50 USDT. Eksplorasi lokal terpisah memakai data historis dan snapshot aturan Demo, dengan sizing simulator v0.1 hingga 5x dan biaya proxy v0.1. Artifact eksplorasi tidak digunakan sebagai pengganti percobaan formal atau untuk promosi.

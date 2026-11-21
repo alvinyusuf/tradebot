@@ -1,6 +1,6 @@
 # Arsitektur Tradebot
 
-Status: arsitektur v0.1 untuk implementasi, 10 November 2026. Kontrak numerik ada di [experiment-spec.md](experiment-spec.md), gate di [acceptance.md](acceptance.md), operasi di [operations.md](operations.md). Belum ada runtime, model terlatih, atau validasi profitabilitas. Keputusan produk dan status persetujuan ada di [decisions.md](decisions.md).
+Status 21 November 2026: fondasi lokal simulator dan tooling riset tersedia. Kontrak numerik ada di [experiment-spec.md](experiment-spec.md), gate di [acceptance.md](acceptance.md), dan operasi di [operations.md](operations.md). Status pengujian serta pekerjaan runtime di [status proyek](../memory/STATE.md). Keputusan produk dan status persetujuan ada di [decisions.md](decisions.md).
 
 ## Tujuan dan batas sistem
 
@@ -12,7 +12,7 @@ Konfigurasi eksperimen yang disepakati: modal sekitar USD 100, BTCUSDT perpetual
 
 Gunakan modular monolith Python: satu repository dan satu paket domain, dengan entry point terpisah untuk ingest, backtest, train, evaluate, dan paper trading. Tidak perlu microservices untuk skala awal. Ini pilihan teknis awal untuk implementasi lokal, bukan bukti stack telah diuji.
 
-- Python 3.11 sebagai target; versi dependensi exact dikunci resolver dan diuji saat bootstrap sesuai kontrak operasi.
+- Python 3.11 dan versi dependensi dikunci resolver di `uv.lock`. Paket dasar serta ekstra PPO CPU diuji pada Windows.
 - NumPy/pandas untuk pengolahan data; Parquet untuk dataset immutable yang berversi.
 - Gymnasium untuk kontrak simulator; Stable-Baselines3/PyTorch dengan PPO untuk eksperimen RL v0.1.
 - SQLite untuk event, state, dan jurnal pada proses paper/live tunggal. Migrasi PostgreSQL hanya bila kebutuhan concurrency mengharuskannya.
@@ -59,7 +59,7 @@ Simulator memakai domain ledger, risiko, biaya, dan intent yang sama dengan pape
 | `learning` | Training, artifact, pemilihan model, evaluasi | Policy dan laporan eksperimen |
 | `reporting` | Hasil net, drawdown, biaya, pelanggaran, kesehatan service | Ringkasan harian dan audit |
 
-Nama modul merupakan rencana struktur `src/tradebot/`, belum file yang sudah dibuat. Intent menyatakan tindakan yang diminta; risk engine menentukan ukuran dan kelayakan. Policy tidak mengirim order sendiri.
+Tabel menggambarkan struktur `src/tradebot/` dan kontrak modul yang masih akan dikembangkan sampai runtime terintegrasi. Intent menyatakan tindakan yang diminta. Risk engine menentukan ukuran dan kelayakan, lalu adapter menangani eksekusi.
 
 ## Model keputusan dan proteksi
 
@@ -111,4 +111,4 @@ Key runtime berasal dari secret store/environment, tidak masuk log. Batasi izin 
 
 ## Batas penyelesaian definisi
 
-Formula/parameter eksperimen, split data, reward, gate, recovery, retensi dan target operasi telah ditetapkan dalam dokumen acuan v0.1. Implementasi dan bukti pengujian belum tersedia. Verifikasi filter/fee/bracket live, kompatibilitas dependensi dan kualitas data adalah pekerjaan validasi nyata, bukan nilai yang boleh dikarang untuk menutup definisi. Budget/provider/kanal eksternal dipilih bersama pengguna sebelum provisioning atau aktivasi live; simulator tidak bergantung pada keputusan pembelian tersebut.
+Formula eksperimen, split data, reward, gate, recovery, retensi dan target operasi ditetapkan dalam dokumen v0.1. Pengujian lokal memeriksa simulator, PPO CPU, dan fault injection pemulihan. Filter, fee, bracket, dan bukti pasar aktual masih menjadi prasyarat promosi. Budget, provider, serta kanal eksternal diputuskan sebelum provisioning atau aktivasi live.

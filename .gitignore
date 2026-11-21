@@ -1,0 +1,8 @@
+/.tools/
+/.venv/
+/data/
+/runs/
+/artifacts/
+__pycache__/
+.env
+.env.*
